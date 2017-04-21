@@ -9,7 +9,7 @@ ul, ol, h1, h2, h3, h4, h5 {
 /* Typography */
 body {
     font-family: 'Roboto', sans-serif;
-    font-size: 20px;
+    font-size: 25px;
 }
 .datetime {
     font-weight: 100;
@@ -60,7 +60,7 @@ header {
 
 .deadline-item {
     & > * {
-        flex: 1;
+        flex: 100%;
     }
     .item-date {
         text-align: center;

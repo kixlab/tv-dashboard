@@ -1,10 +1,13 @@
 import './style.scss';
 import moment from 'moment';
+import items from './_events.json';
 
-/* List of deadline items */
-let items = [
-    {title: 'CHI 2018 Full Paper', time: moment('April 21, 2017 2:00 PDT')}
-];
+/* Parse and sort items */
+let itemsParsed = items.map((item) => {
+    item.time = moment(item.time);
+    return item;
+})
+itemsParsed.sort((a, b) => a.time.diff(b.time, 'seconds') > 0);
 
 
 /* Templates */
@@ -22,11 +25,8 @@ const $ = document.querySelectorAll.bind(document);
 /* Update routine */
 const update = () => {
     $('#current-time')[0].innerHTML = currentTimeTemplate(new Date());
-    $('#deadline-list')[0].innerHTML = itemsTemplate(items);
+    $('#deadline-list')[0].innerHTML = itemsTemplate(itemsParsed);
 };
-
-/* Sort deadline items */
-items.sort((a, b) => a.time.diff(b.time, 'seconds') > 0);
 
 /* Install document.ready event listener */
 document.addEventListener("DOMContentLoaded", () => {

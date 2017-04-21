@@ -1,8 +1,12 @@
 # KIXLAB TV Dashboard
 
+## Add deadlines
+
+See `_events.json`
+
 ## Build
 
     npm install
     npm run build
 
-Commit the `dist` folder to git, but not `node_modules`.
+Then commit all changes (including the `dist` folder) and push to master.
