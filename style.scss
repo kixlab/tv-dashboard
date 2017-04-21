@@ -9,6 +9,7 @@ ul, ol, h1, h2, h3, h4, h5 {
 /* Typography */
 body {
     font-family: 'Roboto', sans-serif;
+    font-size: 20px;
 }
 .datetime {
     font-weight: 100;
@@ -16,6 +17,7 @@ body {
 h1 {
     font-weight: 300;
     margin: 0;
+    font-size: 1.75em;
 }
 h1 span {
     font-weight: 100;
@@ -34,10 +36,11 @@ body, html {
 .grid-2 {
     display: flex;
     padding: 15px;
-}
-.grid-2 > * {
-    flex: 1;
-    margin: 15px;
+    
+    & > * {
+        flex: 1;
+        margin: 15px;
+    }
 }
 
 /* Elements */
@@ -48,17 +51,22 @@ header {
 .deadline-list {
     background-color: #FFD000;
     font-size: 2em;
+
+    li {
+        padding: 30px;
+        border-bottom: 4px solid #fff;
+    }
 }
-.deadline-list li {
-    padding: 30px;
-    border-bottom: 4px solid #fff;
-}
-.deadline-item > * {
-    flex: 1;
-}
-.deadline-item .item-date {
-    text-align: center;
-}
-.deadline-item .item-timeleft {
-    text-align: right;
+
+.deadline-item {
+    & > * {
+        flex: 1;
+    }
+    .item-date {
+        text-align: center;
+        padding: 0 1em;
+    }
+    .item-timeleft {
+        text-align: right;
+    }
 }

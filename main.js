@@ -1,6 +1,8 @@
+import './style.scss';
+import moment from 'moment';
+
 /* List of deadline items */
 let items = [
-    {title: 'CHI 2018 Full Paper', time: moment('Sept 12, 2017 0:00 PDT')},
     {title: 'CHI 2018 Full Paper', time: moment('April 21, 2017 2:00 PDT')}
 ];
 
