@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
+
+/* Reset */
+ul, ol, h1, h2, h3, h4, h5 {
+    margin: 0;
+    padding: 0;
+}
+
+/* Typography */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+.datetime {
+    font-weight: 100;
+}
+h1 {
+    font-weight: 300;
+    margin: 0;
+}
+h1 span {
+    font-weight: 100;
+}
+
+/* General layout */
+body, html {
+    margin: 0;
+    padding: 0;
+}
+.grid-headline {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+.grid-2 {
+    display: flex;
+    padding: 15px;
+}
+.grid-2 > * {
+    flex: 1;
+    margin: 15px;
+}
+
+/* Elements */
+header {
+    background-color: #f0f0f0;
+    padding: 15px 30px;
+}
+.deadline-list {
+    background-color: #FFD000;
+    font-size: 2em;
+}
+.deadline-list li {
+    padding: 30px;
+    border-bottom: 4px solid #fff;
+}
+.deadline-item > * {
+    flex: 1;
+}
+.deadline-item .item-date {
+    text-align: center;
+}
+.deadline-item .item-timeleft {
+    text-align: right;
+}
