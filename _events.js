@@ -1,4 +1,4 @@
-const items = [
+const EVENTS = [
     {
       "title": "UIST 2017 Demo",
       "time": "July 12, 2017 12:00 PDT"
