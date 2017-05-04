@@ -1,6 +1,6 @@
 import './style.scss';
 import moment from 'moment';
-import items from './_events.json';
+// import items from './_events.json';
 
 /* Parse and sort items */
 let itemsParsed = items.map((item) => {
