@@ -11,10 +11,19 @@ itemsParsed.sort((a, b) => a.time.diff(b.time, 'seconds') > 0);
 
 
 /* Templates */
+const timeDiffFormat = (a) => {
+    let now = moment();
+    let d = a.diff(now, 'days');
+    let h = a.diff(now, 'hours') - d*24;
+    let m = a.diff(now, 'minutes') - h*60 - d*24*60;
+    let str = `${d} days, ${h} hours`;
+    if (d < 1) str = `${h} hours, ${m} minutes`;
+    return str;
+};
 const itemTemplate = (item) => `<li class="deadline-item grid-headline">
     <span class="item-title">${item.title}</span>
     <span class="item-date">${item.time.format('MMM Do YYYY')}</span>
-    <span class="item-timeleft">${moment().to(item.time)}</span>
+    <span class="item-timeleft">${timeDiffFormat(item.time)}</span>
 </li>`;
 const itemsTemplate = (items) => items.map(itemTemplate).join('');
 const currentTimeTemplate = (date) => date.toLocaleString();
