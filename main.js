@@ -41,4 +41,6 @@ const update = () => {
 document.addEventListener("DOMContentLoaded", () => {
   setInterval(update, 1000);
   update();
+
+  document.write(navigator.userAgent);
 });
