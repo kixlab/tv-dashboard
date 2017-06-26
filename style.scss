@@ -70,3 +70,36 @@ header {
         text-align: right;
     }
 }
+
+
+#screensaver {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+$size: 100px;
+.x, .y {
+    width: $size*3;
+    height: $size;
+}
+#screensaver .y {
+    background: transparent url(assets/logo.png) no-repeat;
+    background-size: 100%;
+}
+.x {
+  animation: x 13s linear infinite alternate;
+}
+.y {
+  animation: y 7s linear infinite alternate;
+}
+@keyframes x {
+  100% {
+    transform: translateX( calc(100vw - #{$size*3}) );
+  }
+}
+@keyframes y {
+  100% {
+    transform: translateY( calc(100vh - #{$size}) );
+  }
+}

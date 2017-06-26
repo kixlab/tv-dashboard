@@ -7,7 +7,7 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),
-    publicPath: './dist/'
+    publicPath: ''
   },
   externals: {
     "events": "EVENTS"
@@ -41,7 +41,11 @@ module.exports = {
       {
         test: /\.json$/,
         use: 'json-loader'
-      }
+      },
+      {
+        test: /\.(png|svg|jpg)$/,
+        loader: "url-loader?limit=10000"
+      },
     ]
   },
   plugins: [
