@@ -2,7 +2,9 @@
 
 ## Add deadlines
 
-See `_events.json`
+See `events.js`
+
+You can edit this file directly on Github.
 
 ## Build
 
