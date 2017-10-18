@@ -10,5 +10,9 @@ var EVENTS = [
     {
         "title": "CHI 2018 LBW",
         "time": "January 15, 2018 12:00 PST"
-    }
+    },
+    {
+        "title": "UIST 2018 Full Paper",
+        "time": "April 10, 2018 12:00 PST"
+    },
 ]
