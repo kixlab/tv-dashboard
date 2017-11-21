@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'main.js'),
+  entry: ['babel-polyfill', path.resolve(__dirname, 'main.js')],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),
@@ -20,7 +20,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env']
+            presets: ['env', 'es2015', 'stage-0']
           }
         }
       },

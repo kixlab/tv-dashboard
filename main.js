@@ -1,6 +1,7 @@
 import './style.scss';
 import moment from 'moment';
 import items from 'events'
+import './github-stats';
 
 /* Parse and sort items */
 let itemsParsed = items.map((item) => {
