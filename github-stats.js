@@ -1,8 +1,21 @@
 
 import moment from 'moment';
 
+var urlParams;
+(window.onpopstate = function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+    urlParams = {};
+    while (match = search.exec(query))
+       urlParams[decode(match[1])] = decode(match[2]);
+})();
+
 const request = function(url) {
-    let token = '4b69bebd88ba47afcf1a90bb83b26c6035194b9a';
+    let token = urlParams['token'];
     let request_options = {
         headers: new Headers({
             'Authorization': 'token ' + token
