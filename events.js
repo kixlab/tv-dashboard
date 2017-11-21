@@ -13,7 +13,7 @@ var EVENTS = [
     },
     {
         "title": "UIST 2018 Full Paper",
-        "time": "April 10, 2018 12:00 PST"
+        "time": "April 3, 2018 12:00 PDT"
     },
     {
         "title": "CSCW 2018 Full Paper",
