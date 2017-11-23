@@ -1,10 +1,8 @@
 # KIXLAB TV Dashboard
 
-## Add deadlines
+## Data
 
-See `events.js`
-
-You can edit this file directly on Github.
+The data is pulled from other sources (currently a Google sheet and GitHub API).
 
 ## Build
 
