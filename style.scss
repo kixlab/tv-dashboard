@@ -49,12 +49,24 @@ header {
     padding: 15px 30px;
 }
 .deadline-list {
-    background-color: #FFD000;
-    font-size: 2em;
 
     li {
-        padding: 30px;
         border-bottom: 4px solid #fff;
+        display: block;
+        
+        .item-head {
+            padding: 30px;
+            display: block;
+            background-color: #FFD000;
+            font-size: 2em;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+        .item-members {
+            display: block;
+            padding: 10px 30px;
+        }
     }
 }
 

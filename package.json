@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "moment": "^2.18.1"
+    "moment": "^2.18.1",
+    "tabletop": "^1.5.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

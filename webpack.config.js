@@ -51,5 +51,11 @@ module.exports = {
   plugins: [
     new ExtractTextPlugin("style.css"),
     new webpack.ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(xx)$/)
-  ]
+  ],
+  node: {
+    console: false,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  }
 }
