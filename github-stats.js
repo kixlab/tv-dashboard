@@ -1,6 +1,10 @@
 
 import moment from 'moment';
 
+// Gets the GitHub access token from the ?token= URL parameter.
+// Set GitHub organization
+let organization = 'kixlab';
+
 var urlParams;
 (window.onpopstate = function () {
     var match,
@@ -34,31 +38,39 @@ const fetch_json = function(url) {
 };
 
 const load = async function(){
+    // Clear charts
+    document.getElementById('charts').innerHTML = 'Loading activity charts...';
+
     // Check rate limiting
     let rate_limit = await fetch_json('https://api.github.com/rate_limit');
     if (rate_limit.rate.remaining == 0) {
-        console.error('Github API rate limiting in effect. Wait for reset at ' + moment(1000*rate_limit.rate.reset).toLocaleString());
+        let error = 'Github API rate limiting in effect. Wait for reset at ' + moment(1000*rate_limit.rate.reset).toLocaleString();
+        console.error(error);
+        document.getElementById('charts').innerHTML = error;
         return;
     } else {
         console.info('Github API rate limiting: ' + rate_limit.rate.remaining + ' requests remaining.');
     }
+
     // Get list of repos
-    let repos = await fetch_json('https://api.github.com/orgs/kixlab/repos');
+    let repos = await fetch_json(`https://api.github.com/orgs/${organization}/repos`);
     repos.sort((a, b) => -(moment(a.pushed_at) - moment(b.pushed_at)));
     //repos = repos.slice(0, 5);
+
     // Load contributors and statistics simultaneously
     let fetches = [];
     fetches.push(...repos.map(repo =>
-        fetch_json('https://api.github.com/repos/kixlab/' + repo.name + '/stats/contributors').then(data => {
+        fetch_json(`https://api.github.com/repos/${organization}/${repo.name}/stats/contributors`).then(data => {
             repo.contributors = data;
         })
     ));
     fetches.push(...repos.map(repo => 
-        fetch_json('https://api.github.com/repos/kixlab/' + repo.name + '/stats/commit_activity').then(data => {
+        fetch_json(`https://api.github.com/repos/${organization}/${repo.name}/stats/commit_activity`).then(data => {
             repo.commit_activity = data;
         })
     ));
     await Promise.all(fetches);
+
     // Display data
     for (let repo of repos) {
         console.log(repo.name, repo.pushed_at, repo.contributors, repo.commit_activity);
@@ -76,61 +88,57 @@ const load = async function(){
 };
 
 const draw_commit_activity_chart = function(name, commit_activity) {
-    google.charts.load('current', {'packages': ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-        var node = document.createElement("div");
-        node.id = 'chart_' + name;
-        
-
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', 'Week');
-        data.addColumn('number', 'Number of commits');
-  
-        let array = [];
-        let total = 0;
-        for (let i in commit_activity) {
-            let week = commit_activity[i];
-            array.push([moment(week.week*1000)._d, week.total]);
-            total += week.total;
-        }
-        if (total == 0) return;
-        let months = 12;
-        if (commit_activity.length > 1) {
-            months = moment.duration(1000*(commit_activity[commit_activity.length-1].week - commit_activity[0].week)).asMonths();
-        }
-        console.log(array);
-        data.addRows(array);
-    
-        var options = {
-            title: name,
-            curveType: 'function',
-            legend: 'none',
-            width: 450,
-            height: 200,
-            hAxis: {
-                format: 'M.yyyy',
-                gridlines: {count: Math.ceil(months/2)}
-            },
-            vAxis: {
-                gridlines: {color: 'none'},
-                minValue: 0,
-                viewWindow: {
-                    min: 0
-                }
-            }
-        };
-
-        document.getElementById('charts').appendChild(node);
-        var chart = new google.visualization.LineChart(node);
-        chart.draw(data, options);
-        
+    // Convert commit_activity into DataTable
+    var data = new google.visualization.DataTable();
+    data.addColumn('date', 'Week');
+    data.addColumn('number', 'Number of commits');
+    let array = [];
+    let total = 0;
+    for (let i in commit_activity) {
+        let week = commit_activity[i];
+        array.push([moment(week.week*1000)._d, week.total]);
+        total += week.total;
     }
+    if (total == 0) return;
+    data.addRows(array);
+
+    // X-axis labels
+    let months = 12;
+    if (commit_activity.length > 1) {
+        months = moment.duration(1000*(commit_activity[commit_activity.length-1].week - commit_activity[0].week)).asMonths();
+    }
+
+    var options = {
+        title: name,
+        curveType: 'function',
+        legend: 'none',
+        width: 450,
+        height: 200,
+        hAxis: {
+            format: 'M.yyyy',
+            gridlines: {count: Math.ceil(months/2)}
+        },
+        vAxis: {
+            gridlines: {color: 'none'},
+            minValue: 0,
+            viewWindow: {
+                min: 0
+            }
+        }
+    };
+
+    // Create DOM node and add to document
+    var node = document.createElement("div");
+    node.id = 'chart_' + name;
+    document.getElementById('charts').appendChild(node);
+    var chart = new google.visualization.LineChart(node);
+    chart.draw(data, options);
 };
 
+google.charts.load('current', {'packages': ['corechart']});
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Reload every 30 minutes
     setInterval(load, 30*60000);
     load();
 });
