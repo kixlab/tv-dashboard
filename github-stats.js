@@ -72,6 +72,7 @@ const load = async function(){
     await Promise.all(fetches);
 
     // Display data
+    document.getElementById('charts').innerHTML = '';
     for (let repo of repos) {
         console.log(repo.name, repo.pushed_at, repo.contributors, repo.commit_activity);
         if (repo.contributors) {
