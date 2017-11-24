@@ -43,6 +43,17 @@ body, html {
     }
 }
 
+main {
+    display: flex;
+
+    .deadline-list {
+        flex: 2;
+    }
+    .charts {
+        flex: 1;
+    }
+}
+
 /* Elements */
 header {
     background-color: #f0f0f0;
@@ -53,15 +64,19 @@ header {
     li {
         border-bottom: 4px solid #fff;
         display: block;
-        
+
         .item-head {
             padding: 30px;
             display: block;
             background-color: #FFD000;
-            font-size: 2em;
+            font-size: 1.75em;
             display: flex;
             align-items: baseline;
             justify-content: space-between;
+
+            > * {
+                flex: 1;
+            }
         }
         .item-members {
             display: block;
